@@ -1,17 +1,17 @@
 # 🌌 Cyberdeck / Violet Startpage
 
 <p align="center">
-  <img src="images/gif.gif" alt="Aperçu Startpage" width="700" style="border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);" />
+  <img src="images/gif.gif" alt="Aperçu Startpage" width="720" style="border-radius: 12px; box-shadow: 0 10px 35px rgba(0,0,0,0.6);" />
 </p>
 
 <p align="center">
-  <b>Une page d'accueil (startpage) moderne, fluide et immersive conçue pour booster votre productivité tout en sublimant votre navigateur.</b>
+  <b>Une page d'accueil (startpage) modulaire, moderne et immersive conçue pour booster votre productivité tout en sublimant votre navigateur.</b>
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/CSS3_Modulaire-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/JavaScript_Vanilla-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
   <img src="https://img.shields.io/badge/Font_Awesome-528DD7?style=for-the-badge&logo=font-awesome&logoColor=white" alt="Font Awesome" />
   <img src="https://img.shields.io/badge/JetBrains_Mono-000000?style=for-the-badge&logo=jetbrains&logoColor=white" alt="JetBrains Mono" />
 </p>
@@ -20,7 +20,7 @@
 
 ## 📸 Aperçu des Thèmes
 
-La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilight), orbes lumineux animés et scanlines rétro. Vous pouvez basculer d'un thème à l'autre en un clic ou via le pavé numérique (`1`, `2`, `3`).
+La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilight), orbes lumineux animés et scanlines rétro. Vous pouvez basculer d'un thème à l'autre en un clic ou via le pavé numérique (<kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>).
 
 | Thème 1 : Kanagawa 🌊 | Thème 2 : Sakura 🌸 | Thème 3 : Cyberdeck ⚡ |
 | :---: | :---: | :---: |
@@ -31,10 +31,10 @@ La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilig
 
 ## ✨ Fonctionnalités Clés
 
-### 🔍 1. Barre de Recherche Intelligente (Omnibox)
-- **Raccourci instantané** : Appuyez sur la touche <kbd>/</kbd> n'importe où pour cibler directement la barre de recherche.
+### 🔍 1. Barre de Recherche Intelligente (Omnibox) — `js/search.js`
+- **Raccourci instantané** : Appuyez sur la touche <kbd>/</kbd> n'importe où pour cibler immédiatement la recherche.
 - **Moteurs de recherche & Préfixes rapides (Bangs)** :
-  Tapez un préfixe pour changer instantanément de moteur :
+  Tapez un préfixe pour changer instantanément de moteur de recherche :
   - `!yt <requête>` : Rechercher sur **YouTube**
   - `!gh <requête>` : Rechercher sur **GitHub**
   - `!tr <texte>` : Traduire avec **DeepL**
@@ -45,36 +45,74 @@ La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilig
   - `!so <requête>` : Rechercher sur **StackOverflow**
   - `!arch <sujet>` : Consulter le wiki **ArchLinux**
   - `!r <terme>` : Rechercher sur **Reddit**
-  - `!help` : Afficher l'aide interactive de tous les préfixes
+  - `!help` : Afficher l'aide interactive des commandes
 - **Calculatrice en direct** : Saisissez une expression mathématique (ex: `15 * 4`, `(120/4) + 8`) et le résultat s'affiche en temps réel sans recharger la page.
-- **Suggestions automatiques** : Intégration de l'autocomplétion Google en temps réel navigable au clavier (flèches <kbd>↑</kbd> <kbd>↓</kbd>).
+- **Suggestions automatiques** : Autocomplétion Google en temps réel navigable au clavier (flèches <kbd>↑</kbd> <kbd>↓</kbd>).
 
-### ⚡ 2. Signets & Raccourcis 100% Personnalisables
-- **4 catégories par défaut** : *Social*, *Jeux*, *IA* (Gemini, ChatGPT, Claude, DeepSeek, etc.) et *Unif / Études*.
+### ⚡ 2. Signets & Raccourcis 100% Personnalisables — `js/bookmarks.js`
+- **4 catégories organisées** : *Social*, *Jeux*, *IA* (Gemini, ChatGPT, Claude, DeepSeek...) et *Unif / Travail*.
 - **Mode Édition interactif** : Cliquez sur le bouton <kbd>Éditer</kbd> (icône pinceau) en haut à droite pour modifier n'importe quel raccourci.
-- **Modale de personnalisation** : Changez le titre, l'URL de destination et sélectionnez une icône FontAwesome.
+- **Modale de personnalisation** : Modification du titre, de l'URL et sélection d'icônes Font Awesome avec aperçu en temps réel.
 - **Persistance locale** : Toutes vos modifications sont enregistrées dans le `localStorage` de votre navigateur (aucune donnée n'est envoyée sur un serveur).
 
-### 📅 3. Mini-Calendrier & Filtre d'échéances
+### 📅 3. Mini-Calendrier & Filtre d'échéances — `js/calendar.js`
 - Vue calendaire complète du mois en cours avec mise en évidence du jour actuel.
-- Navigation d'un mois à l'autre et bouton retour immédiat à aujourd'hui (<kbd>auj</kbd>).
-- **Filtre interactif** : Cliquez sur un jour du calendrier pour filtrer automatiquement vos tâches associées à cette date.
+- Navigation d'un mois à l'autre et bouton retour rapide à aujourd'hui (<kbd>auj</kbd>).
+- **Filtre synchronisé** : Cliquez sur une date du calendrier pour afficher uniquement les tâches associées à ce jour.
 
-### ✅ 4. Gestionnaire de Tâches (Tasks / To-Do List)
-- Ajout instantané de tâches avec date d'échéance optionnelle.
-- Validation d'une tâche d'un simple clic pour la rayer.
-- Suppression facile et filtrage synchronisé avec le calendrier.
-- Sauvegarde automatique dans le `localStorage`.
+### ✅ 4. Gestionnaire de Tâches (Tasks / To-Do List) — `js/tasks.js`
+- Ajout de tâches avec date d'échéance optionnelle.
+- Badges d'urgence dynamiques : `Auj.`, `J-X` (à venir) et `J+X` (en retard).
+- Validation d'un clic pour rayer une tâche terminée, suppression rapide.
+- Synchronisation complète avec le calendrier et persistance `localStorage`.
 
-### 🌤️ 5. Météo & Horloge Digitale
+### 🌤️ 5. Météo & Horloge Digitale — `js/weather.js` & `js/clock.js`
 - Horloge numérique dynamique avec affichage des secondes et date complète en français.
-- Widget météo en direct (température et icône météo synchronisées périodiquement).
+- Widget météo synchronisé périodiquement via wttr.in (température et icône météo adaptative).
 
-### 📰 6. Flux d'Actualités en Direct (Live Feeds)
-- Onglets d'actualités intégrés :
-  - 🏎️ **F1** : Dernières actus Formule 1
-  - ⚽ **Football** : Dernières actualités foot
-  - 💻 **Tech** : Veille technologique et numérique
+### 📰 6. Flux d'Actualités en Direct — `js/feeds.js`
+- Onglets d'actualités intégrés avec skeleton loading :
+  - 🏎️ **F1** : Dernières dépêches Formule 1
+  - ⚽ **Football** : Dernières actualités sportives
+  - 💻 **Tech** : Veille technologique (Hacker News)
+
+---
+
+## 🏗️ Architecture Propre & Modulaire
+
+Le projet a été restructuré pour séparer distinctement la structure HTML, les feuilles de style de chaque thème et chaque module JavaScript fonctionnel :
+
+```text
+violet-startpage/
+├── index.html                  # Structure HTML épurée & chargement modulaire
+├── README.md                   # Documentation complète du projet
+├── .gitignore                  # Fichiers et dossiers exclus de Git
+│
+├── css/                        # Feuilles de styles modulaires
+│   ├── style.css               # Styles de base, Bento Grid, composants & responsive
+│   └── themes/                 # Thèmes visuels autonomes
+│       ├── kanagawa.css        # Thème 1 : Kanagawa (Cyan / Menthe froide)
+│       ├── sakura.css          # Thème 2 : Sakura (Rose / Néo-pastel)
+│       └── cyberdeck.css       # Thème 3 : Cyberdeck (Néon violet & cyan)
+│
+├── js/                         # Logique JavaScript modulaire
+│   ├── app.js                  # Point d'entrée & bootstrapping DOMContentLoaded
+│   ├── themes.js               # Gestionnaire de thèmes et éclairage Ambilight
+│   ├── bookmarks.js            # Signets personnalisables, modale & persistance
+│   ├── search.js               # Omnibox : moteur, calculatrice, bangs & autocomplétion
+│   ├── calendar.js             # Mini-calendrier mensuel interactif
+│   ├── tasks.js                # To-Do list, calcul des échéances & filtrage
+│   ├── clock.js                # Horloge numérique et calendrier français
+│   ├── weather.js              # Widget météo en direct (wttr.in)
+│   ├── feeds.js                # Flux d'actualités en direct (F1, Foot, Tech)
+│   └── shortcuts.js            # Raccourcis clavier globaux
+│
+└── images/                     # Médias et animations des thèmes
+    ├── gif.gif                 # Artwork Thème 1 (Kanagawa)
+    ├── gif2.gif                # Artwork Thème 2 (Sakura)
+    ├── gif3.gif                # Artwork Thème 3 (Cyberdeck)
+    └── gif_origin.gif
+```
 
 ---
 
@@ -82,10 +120,10 @@ La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilig
 
 | Raccourci | Action |
 | :--- | :--- |
-| <kbd>/</kbd> | Activer la barre de recherche |
+| <kbd>/</kbd> | Activer immédiatement la barre de recherche |
 | <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd> | Basculer entre les thèmes (Kanagawa / Sakura / Cyberdeck) |
-| <kbd>Échap</kbd> | Fermer la modale d'édition ou fermer les suggestions de recherche |
-| <kbd>Entrée</kbd> | Valider une recherche, ajouter une tâche ou enregistrer une modification |
+| <kbd>Échap</kbd> | Fermer la modale d'édition ou masquer les suggestions |
+| <kbd>Entrée</kbd> | Valider une recherche, ajouter une tâche ou enregistrer |
 | <kbd>↑</kbd> / <kbd>↓</kbd> | Naviguer dans les suggestions de recherche |
 
 ---
@@ -97,39 +135,33 @@ La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilig
    ```bash
    git clone https://github.com/ugovds/startup_page.git
    ```
-2. Ouvrez le fichier `index.html` dans votre navigateur Web (Chrome, Firefox, Brave, Edge, etc.).
-3. Pour l'utiliser en tant que page de nouvel onglet :
-   - Vous pouvez installer une extension de type **New Tab Override** ou **Custom New Tab URL**.
-   - Renseignez l'URL locale du fichier `file:///chemin/vers/index.html` ou utilisez un petit serveur local.
+2. Ouvrez simplement `index.html` dans votre navigateur Web (Chrome, Firefox, Brave, Edge...).
+3. Pour définir comme nouvel onglet :
+   - Utilisez une extension telle que **New Tab Override** ou **Custom New Tab URL**.
+   - Indiquez le chemin vers votre fichier : `file:///chemin/vers/index.html`.
 
 ### Option B : Déploiement en ligne gratuit (GitHub Pages)
-1. Rendez-vous sur votre dépôt GitHub : `https://github.com/ugovds/startup_page`.
-2. Allez dans **Settings** > **Pages**.
+1. Rendez-vous sur votre dépôt GitHub : [https://github.com/ugovds/startup_page](https://github.com/ugovds/startup_page).
+2. Rendez-vous dans **Settings** > **Pages**.
 3. Sous **Branch**, sélectionnez `main` et `/ (root)`, puis cliquez sur **Save**.
-4. Votre startpage sera disponible en ligne sous l'adresse :
+4. Votre startpage sera instantanément accessible en ligne à l'adresse :
    ```text
    https://ugovds.github.io/startup_page/
    ```
 
 ---
 
-## 📂 Structure du Répertoire
+## 🎨 Créer un Nouveau Thème
 
-```text
-├── index.html        # Page principale : structure HTML et scripts interactifs
-├── style.css         # Thèmes, mise en page CSS Grid/Flexbox et effets visuels
-├── README.md         # Documentation et aperçus du projet
-├── .gitignore        # Fichiers et dossiers exclus du suivi Git
-└── images/           # Illustrations et GIFs animés
-    ├── gif.gif       # Artwork Thème 1 (Kanagawa)
-    ├── gif2.gif      # Artwork Thème 2 (Sakura)
-    ├── gif3.gif      # Artwork Thème 3 (Cyberdeck)
-    └── gif_origin.gif
-```
-
----
-
-## 🎨 Personnalisation Avancée
-
-- **Modifier les couleurs & ambiances** : Ouvrez `style.css` et ajustez les variables CSS `:root`, `body[data-theme="2"]` et `body[data-theme="3"]`.
-- **Changer les flux d'actualités** : Dans `index.html`, recherchez la fonction `fetchFeed()` pour modifier les sources RSS ou ajouter de nouvelles catégories.
+Grâce à la nouvelle architecture modulaire, ajouter un thème est un jeu d'enfant :
+1. Créez un fichier `css/themes/mon-theme.css` avec vos variables CSS :
+   ```css
+   body[data-theme="4"] {
+     --bg-deep: #0a0e14;
+     --accent-primary: #ffaa00;
+     --accent-secondary: #00e5ff;
+     /* ... */
+   }
+   ```
+2. Liez-le dans `index.html` ou importez-le dans `css/style.css`.
+3. Déclarez l'artwork et le nom du thème dans `js/themes.js`.
