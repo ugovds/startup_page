@@ -27,6 +27,7 @@
       <div id="bg-wallpaper" class="bg-wallpaper"></div>
       <div class="ambient-orb orb-primary"></div>
       <div class="ambient-orb orb-secondary"></div>
+      <canvas id="weather-canvas" class="weather-canvas"></canvas>
       <div class="bg-scanlines"></div>
     </div>
 
@@ -43,18 +44,37 @@
         </div>
 
         <div class="topbar-right">
-          <!-- Bouton Pinceau pour le mode édition des raccourcis -->
+          <!-- Bouton pour basculer en mode personnalisation -->
           <button
             type="button"
             id="edit-mode-toggle"
             class="pill-btn edit-toggle-btn"
-            title="Activer/Désactiver le mode personnalisation des raccourcis"
+            title="Activer/Désactiver le mode personnalisation"
           >
             <i class="fa-solid fa-paintbrush"></i>
-            <span class="edit-btn-text">Éditer</span>
+            <span class="edit-btn-text">Personnaliser</span>
           </button>
 
-          <div class="weather-pill" id="weather">
+          <!-- Bouton bascule de l'effet météo d'arrière-plan -->
+          <button
+            type="button"
+            id="weather-fx-toggle"
+            class="pill-btn weather-fx-btn active"
+            title="Effets météo d'arrière-plan (Cliquer pour désactiver)"
+            aria-label="Effet météo animé"
+          >
+            <i class="fa-solid fa-cloud-rain"></i>
+            <span class="fx-indicator-dot"></span>
+          </button>
+
+          <!-- Widget Météo cliquable pour ouvrir la modale détaillée -->
+          <div
+            class="weather-pill clickable-pill"
+            id="weather"
+            role="button"
+            tabindex="0"
+            title="Cliquer pour afficher la météo détaillée et changer de ville"
+          >
             <i id="weather-icon" class="fa-solid fa-cloud-moon"></i>
             <span id="weather-temp">--°C</span>
           </div>
@@ -100,7 +120,7 @@
           </div>
         </aside>
 
-        <!-- COLONNE CENTRALE : Barre de recherche + Catégories générées dynamiquement -->
+        <!-- COLONNE CENTRALE : Barre de recherche + Toolbar Personnalisation + Catégories -->
         <section class="col-center">
           <div class="search-wrapper">
             <form id="search-form" class="search-box">
@@ -123,7 +143,34 @@
             <ul id="suggestions-box" class="suggestions-dropdown" hidden></ul>
           </div>
 
-          <!-- Conteneur des 4 catégories (rendu dynamique pour modification) -->
+          <!-- BARRE DE PERSONNALISATION (VISIBLE UNIQUEMENT EN MODE PERSONNALISER) -->
+          <div id="customize-toolbar" class="customize-toolbar" hidden>
+            <div class="custom-toolbar-left">
+              <span class="custom-badge">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Mode Personnalisation
+              </span>
+              <span class="custom-hint">
+                <i class="fa-solid fa-up-down-left-right"></i> Glissez-déposez pour réorganiser • Cliquez pour modifier
+              </span>
+            </div>
+            <div class="custom-toolbar-actions">
+              <button type="button" id="btn-manage-feeds" class="custom-tool-btn" title="Gérer vos flux d'actualités personnalisés">
+                <i class="fa-solid fa-rss"></i> Flux RSS
+              </button>
+              <button type="button" id="btn-export-backup" class="custom-tool-btn" title="Télécharger une sauvegarde JSON de vos paramètres et raccourcis">
+                <i class="fa-solid fa-download"></i> Sauvegarder
+              </button>
+              <button type="button" id="btn-import-backup" class="custom-tool-btn" title="Restaurer vos paramètres à partir d'un fichier JSON">
+                <i class="fa-solid fa-upload"></i> Restaurer
+              </button>
+              <button type="button" id="btn-close-edit" class="custom-tool-btn primary" title="Quitter le mode personnalisation">
+                <i class="fa-solid fa-check"></i> Terminer
+              </button>
+            </div>
+          </div>
+          <input type="file" id="import-file-input" accept=".json" hidden />
+
+          <!-- Conteneur des 4 catégories (rendu dynamique pour modification et drag & drop) -->
           <div id="categories-container" class="categories-grid"></div>
         </section>
 
@@ -172,6 +219,139 @@
           </div>
         </aside>
       </main>
+    </div>
+
+    <!-- MODALE MÉTÉO DÉTAILLÉE & CHOIX DE LA VILLE -->
+    <div id="weather-modal" class="modal-backdrop" hidden>
+      <div class="modal-box weather-modal-box">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <i class="fa-solid fa-cloud-sun"></i>
+            <h3>Météo & Prévisions</h3>
+          </div>
+          <button type="button" id="weather-modal-close" class="modal-close">&times;</button>
+        </div>
+
+        <div class="weather-modal-body">
+          <!-- Formulaire de recherche et configuration de la ville -->
+          <form id="weather-city-form" class="city-search-row">
+            <div class="city-input-wrap">
+              <i class="fa-solid fa-location-dot"></i>
+              <input
+                type="text"
+                id="weather-city-input"
+                placeholder="Entrez une ville (ex: Paris, Bruxelles, Tokyo...)"
+                autocomplete="off"
+              />
+            </div>
+            <button type="submit" class="modal-btn primary city-submit-btn">Définir</button>
+            <button type="button" id="weather-auto-loc-btn" class="modal-btn secondary" title="Revenir à la détection automatique par IP">
+              <i class="fa-solid fa-location-crosshairs"></i> Auto
+            </button>
+          </form>
+          <div id="weather-city-status" class="weather-status-text"></div>
+
+          <!-- Carte Météo Actuelle -->
+          <div class="weather-current-card">
+            <div class="weather-current-main">
+              <i id="weather-detail-icon" class="fa-solid fa-cloud weather-hero-icon"></i>
+              <div class="weather-current-info">
+                <div class="weather-current-temp" id="weather-detail-temp">--°C</div>
+                <div class="weather-current-desc" id="weather-detail-desc">Chargement...</div>
+                <div class="weather-current-loc" id="weather-detail-loc">--</div>
+              </div>
+            </div>
+
+            <!-- Grille des métriques -->
+            <div class="weather-metrics-grid">
+              <div class="weather-metric-item">
+                <span class="metric-label"><i class="fa-solid fa-temperature-half"></i> Ressenti</span>
+                <span class="metric-val" id="weather-metric-feels">--°C</span>
+              </div>
+              <div class="weather-metric-item">
+                <span class="metric-label"><i class="fa-solid fa-droplet"></i> Humidité</span>
+                <span class="metric-val" id="weather-metric-humidity">--%</span>
+              </div>
+              <div class="weather-metric-item">
+                <span class="metric-label"><i class="fa-solid fa-wind"></i> Vent</span>
+                <span class="metric-val" id="weather-metric-wind">-- km/h</span>
+              </div>
+              <div class="weather-metric-item">
+                <span class="metric-label"><i class="fa-solid fa-sun"></i> Indice UV</span>
+                <span class="metric-val" id="weather-metric-uv">--</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Prévisions sur 3 jours -->
+          <div class="weather-forecast-section">
+            <h4 class="forecast-section-title"><i class="fa-regular fa-calendar-days"></i> Prévisions sur 3 jours</h4>
+            <div class="forecast-grid" id="weather-forecast-list">
+              <div class="forecast-loading">Chargement des prévisions...</div>
+            </div>
+          </div>
+
+          <!-- Bascule d'effet d'arrière-plan dans la modale -->
+          <div class="weather-modal-footer">
+            <label class="fx-toggle-label">
+              <span>Effets météo d'arrière-plan animés</span>
+              <input type="checkbox" id="weather-modal-fx-check" checked />
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODALE GESTION DES FLUX RSS PERSONNALISÉS -->
+    <div id="feeds-modal" class="modal-backdrop" hidden>
+      <div class="modal-box feeds-modal-box">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <i class="fa-solid fa-rss"></i>
+            <h3>Gestion des flux d'actualités</h3>
+          </div>
+          <button type="button" id="feeds-modal-close" class="modal-close">&times;</button>
+        </div>
+
+        <div class="feeds-modal-body">
+          <p class="feeds-modal-desc">
+            Ajoutez des flux RSS (blogs, actus, reddit...) pour les afficher directement dans les onglets du widget d'actualités.
+          </p>
+
+          <!-- Formulaire d'ajout -->
+          <form id="add-feed-form" class="add-feed-form">
+            <div class="form-row">
+              <label for="new-feed-name">Nom de l'onglet</label>
+              <input
+                type="text"
+                id="new-feed-name"
+                placeholder="ex: Science, Gaming, Reddit..."
+                required
+                maxlength="15"
+                autocomplete="off"
+              />
+            </div>
+            <div class="form-row">
+              <label for="new-feed-url">URL du flux RSS (XML / RSS)</label>
+              <input
+                type="url"
+                id="new-feed-url"
+                placeholder="https://exemple.com/rss.xml"
+                required
+                autocomplete="off"
+              />
+            </div>
+            <button type="submit" class="modal-btn primary"><i class="fa-solid fa-plus"></i> Ajouter ce flux</button>
+          </form>
+
+          <!-- Liste des flux actifs -->
+          <div class="custom-feeds-list-section">
+            <h4>Vos flux personnalisés</h4>
+            <div id="custom-feeds-list" class="custom-feeds-list"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- MODALE DE PERSONNALISATION DU RACCOURCI -->
@@ -247,8 +427,12 @@
       </div>
     </div>
 
-        <!-- Scripts modulaires -->
+    <!-- Conteneur global de notifications toast -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Scripts modulaires -->
     <script src="js/themes.js"></script>
+    <script src="js/weather-fx.js"></script>
     <script src="js/clock.js"></script>
     <script src="js/weather.js"></script>
     <script src="js/bookmarks.js"></script>

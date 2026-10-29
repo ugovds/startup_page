@@ -4,22 +4,40 @@
 function initShortcuts() {
   document.addEventListener('keydown', (e) => {
     const active = document.activeElement;
-    const editModal = document.getElementById('edit-modal');
     const searchInput = document.getElementById('search-input');
     const todoInput = document.getElementById('todo-input');
     const todoDate = document.getElementById('todo-date');
 
-    const isEditingInModal = editModal && !editModal.hidden;
+    const editModal = document.getElementById('edit-modal');
+    const weatherModal = document.getElementById('weather-modal');
+    const feedsModal = document.getElementById('feeds-modal');
+
+    const isEditModalOpen = editModal && !editModal.hidden;
+    const isWeatherModalOpen = weatherModal && !weatherModal.hidden;
+    const isFeedsModalOpen = feedsModal && !feedsModal.hidden;
+
+    // Fermeture des modales avec Échap
+    if (e.key === 'Escape') {
+      if (isEditModalOpen && typeof closeEditModal === 'function') {
+        closeEditModal();
+        return;
+      }
+      if (isWeatherModalOpen && typeof closeWeatherModal === 'function') {
+        closeWeatherModal();
+        return;
+      }
+      if (isFeedsModalOpen && typeof closeFeedsModal === 'function') {
+        closeFeedsModal();
+        return;
+      }
+    }
+
+    const isAnyModalOpen = isEditModalOpen || isWeatherModalOpen || isFeedsModalOpen;
+    if (isAnyModalOpen) return;
+
     const isTodoFocused = active === todoInput || active === todoDate;
     const isSearchEmpty = active === searchInput && searchInput.value.trim() === '';
     const isNotTyping = active.tagName !== 'INPUT' && active.tagName !== 'TEXTAREA';
-
-    if (isEditingInModal) {
-      if (e.key === 'Escape' && typeof closeEditModal === 'function') {
-        closeEditModal();
-      }
-      return;
-    }
 
     const isThemeKey =
       e.code === 'Numpad1' ||

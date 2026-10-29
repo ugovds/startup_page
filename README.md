@@ -49,11 +49,13 @@ La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilig
 - **Calculatrice en direct** : Saisissez une expression mathématique (ex: `15 * 4`, `(120/4) + 8`) et le résultat s'affiche en temps réel sans recharger la page.
 - **Suggestions automatiques** : Autocomplétion Google en temps réel navigable au clavier (flèches <kbd>↑</kbd> <kbd>↓</kbd>).
 
-### ⚡ 2. Signets & Raccourcis 100% Personnalisables — `js/bookmarks.js`
+### ⚡ 2. Signets & Mode Personnalisation Complet — `js/bookmarks.js`
 - **4 catégories organisées** : *Social*, *Jeux*, *IA* (Gemini, ChatGPT, Claude, DeepSeek...) et *Unif / Travail*.
-- **Mode Édition interactif** : Cliquez sur le bouton <kbd>Éditer</kbd> (icône pinceau) en haut à droite pour modifier n'importe quel raccourci.
+- **Mode Personnalisation interactif** : Cliquez sur <kbd>Personnaliser</kbd> pour afficher la barre d'outils dédiée.
+- **Réorganisation par Glisser-Déposer (Drag & Drop)** : Réordonnez vos favoris ou déplacez-les d'une catégorie à l'autre en un simple glissé.
+- **Sauvegarde & Restauration (Export / Import JSON)** : Téléchargez un fichier de configuration `.json` ou restaurez-le en 1 clic pour retrouver l'intégralité de vos signets, tâches, flux et réglages sur n'importe quel appareil.
 - **Modale de personnalisation** : Modification du titre, de l'URL et sélection d'icônes Font Awesome avec aperçu en temps réel.
-- **Persistance locale** : Toutes vos modifications sont enregistrées dans le `localStorage` de votre navigateur (aucune donnée n'est envoyée sur un serveur).
+- **Persistance locale** : Toutes vos modifications sont enregistrées dans le `localStorage` de votre navigateur.
 
 ### 📅 3. Mini-Calendrier & Filtre d'échéances — `js/calendar.js`
 - Vue calendaire complète du mois en cours avec mise en évidence du jour actuel.
@@ -66,15 +68,15 @@ La page intègre **3 thèmes visuels complets** avec éclairage ambiant (Ambilig
 - Validation d'un clic pour rayer une tâche terminée, suppression rapide.
 - Synchronisation complète avec le calendrier et persistance `localStorage`.
 
-### 🌤️ 5. Météo & Horloge Digitale — `js/weather.js` & `js/clock.js`
-- Horloge numérique dynamique avec affichage des secondes et date complète en français.
-- Widget météo synchronisé périodiquement via wttr.in (température et icône météo adaptative).
+### 🌤️ 5. Météo Détaillée & Effets d'Arrière-Plan Dynamiques — `js/weather.js` & `js/weather-fx.js`
+- **Widget Météo en direct & Modale complète** : Cliquez sur la pilule météo pour ouvrir les détails météo (température ressentie, humidité, vitesse du vent, indice UV) et les **prévisions complètes sur 3 jours**.
+- **Sélection manuelle de la ville** : Entrez votre ville dans la modale ou revenez en un clic à la détection automatique par IP.
+- **Effets météo d'arrière-plan sur Canvas** : Particules animées réagissant à la météo réelle (pluie et reflets, flocons de neige, éclairs d'orage, brume flottante ou étoiles néon scintillantes).
+- **Contrôle manuel ON/OFF** : Bouton dans la topbar et interrupteur dans la modale pour activer/désactiver les effets à tout moment.
 
-### 📰 6. Flux d'Actualités en Direct — `js/feeds.js`
-- Onglets d'actualités intégrés avec skeleton loading :
-  - 🏎️ **F1** : Dernières dépêches Formule 1
-  - ⚽ **Football** : Dernières actualités sportives
-  - 💻 **Tech** : Veille technologique (Hacker News)
+### 📰 6. Flux d'Actualités Personnalisables — `js/feeds.js`
+- Onglets d'actualités intégrés avec skeleton loading (F1, Football, Tech).
+- **Gestionnaire de flux RSS sur mesure** : Ajoutez vos propres flux RSS (blogs, actualités spécialisées, Reddit...) depuis le menu de personnalisation pour les consulter directement dans le widget.
 
 ---
 
@@ -98,13 +100,14 @@ violet-startpage/
 ├── js/                         # Logique JavaScript modulaire
 │   ├── app.js                  # Point d'entrée & bootstrapping DOMContentLoaded
 │   ├── themes.js               # Gestionnaire de thèmes et éclairage Ambilight
-│   ├── bookmarks.js            # Signets personnalisables, modale & persistance
+│   ├── weather-fx.js           # Effets météo d'arrière-plan dynamiques sur Canvas
+│   ├── bookmarks.js            # Signets personnalisables, Drag & Drop & Export/Import JSON
 │   ├── search.js               # Omnibox : moteur, calculatrice, bangs & autocomplétion
 │   ├── calendar.js             # Mini-calendrier mensuel interactif
 │   ├── tasks.js                # To-Do list, calcul des échéances & filtrage
 │   ├── clock.js                # Horloge numérique et calendrier français
-│   ├── weather.js              # Widget météo en direct (wttr.in)
-│   ├── feeds.js                # Flux d'actualités en direct (F1, Foot, Tech)
+│   ├── weather.js              # Widget météo, géolocalisation & modale détaillée
+│   ├── feeds.js                # Flux d'actualités en direct & flux RSS personnalisés
 │   └── shortcuts.js            # Raccourcis clavier globaux
 │
 └── images/                     # Médias et animations des thèmes
